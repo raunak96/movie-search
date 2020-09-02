@@ -63,6 +63,7 @@ a,button {
 	display: flex;
 	justify-content: space-around;
 	margin: 50px 0;
+	width: 100%;
 }
 .img-container {
 	width: 35%;
