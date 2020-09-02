@@ -1,26 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import React, { Fragment, useState } from 'react';
+import Header from './components/Header';
+import "./App.css";
+import MovieList from './components/MovieList';
+const App = () => {
+  const [movies,setMovies]= useState([]); 
+  const handleData =data=> setMovies(data);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+		<Fragment>
+				<Header handleData={handleData} />
+        {movies.length>0 && <MovieList movies={movies}/>}
+		</Fragment>
   );
-}
+};
 
 export default App;
