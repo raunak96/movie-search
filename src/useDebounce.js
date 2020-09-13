@@ -1,7 +1,7 @@
 import  { useEffect, useState } from 'react';
 
 const useDebounce = (movieName, delay) => {
-    const [searchQuery,setSearchQuery] = useState(movieName);
+    const [searchQuery,setSearchQuery] = useState("");
 
     useEffect(()=>{
         const id = setTimeout(()=>setSearchQuery(movieName),delay);

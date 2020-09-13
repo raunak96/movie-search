@@ -18,6 +18,7 @@ const Header = ({handleData}) => {
 			handleData(movies);
 		};
 		if (searchQuery !== "") setMovieData();
+		else handleData([]);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [searchQuery]);
 
