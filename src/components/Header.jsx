@@ -3,28 +3,33 @@ import FetchMovies from "../apis/api";
 import logo from "../assets/logo.svg";
 import SearchBox from './SearchBox';
 import axios from 'axios';
+import useDebounce from "../useDebounce";
 
 const Header = ({handleData}) => {
 	const [movieName, setMovieName] = useState("");
-	useEffect(()=>{
+
+	// this custom-hook returns searchQuery which is movieName to search from API after 1s which makes sure API not called for every letter typed
+	const searchQuery = useDebounce(movieName, 1000);
+
+	useEffect(() => {
 		const setMovieData = async () => {
 			const cancelToken = axios.CancelToken.source();
-			const movies = await FetchMovies(movieName, cancelToken);
+			const movies = await FetchMovies(searchQuery, cancelToken);
 			handleData(movies);
 		};
-		setMovieData();
+		if (searchQuery !== "") setMovieData();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[movieName]);
+	}, [searchQuery]);
 
 	const handleChange = (e) => {
 		setMovieName(e.target.value);
 	};
-    return (
+	return (
 		<nav className='navbar'>
-            <div className="title">
-                <img alt='app icon' src={logo} style={{ height: "35px" }} />
-			    <h1 className='brand-name'>MoviesDB Search</h1>
-            </div>
+			<div className='title'>
+				<img alt='app icon' src={logo} style={{ height: "35px" }} />
+				<h1 className='brand-name'>MoviesDB Search</h1>
+			</div>
 			<SearchBox handleChange={handleChange} movieName={movieName} />
 		</nav>
 	);

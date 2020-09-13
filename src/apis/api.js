@@ -3,8 +3,6 @@ import axios from "axios";
 const FetchMovies =async (title,cancelToken) => {
     const URL = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&query=${title}&page=1`;
     
-        if(title==="")
-            return [];
         try {
             const res = await axios.get(URL, {
                 cancelToken:cancelToken.token,
